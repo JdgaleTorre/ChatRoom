@@ -8,8 +8,16 @@ name: Deploy to Firebase Hosting on merge
       - master
 jobs:
   build_and_deploy:
+    environment: Production_ENV
     env:
-      SERVER: Production_ENV
+      REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
+      REACT_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTHDOMAIN }}
+      REACT_APP_FIREBASE_DATABASEURL: ${{ secrets.REACT_APP_FIREBASE_DATABASEURL }}
+      REACT_APP_FIREBASE_PROJECTID: ${{ secrets.REACT_APP_FIREBASE_PROJECTID }}
+      REACT_APP_FIREBASE_STORAGEBUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGEBUCKET }}
+      REACT_APP_FIREBASE_MESSAGINGSENDERID: ${{ secrets.REACT_APP_FIREBASE_MESSAGINGSENDERID }}
+      REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+      REACT_APP_FIREBASE_MEASUREMENTID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENTID }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
