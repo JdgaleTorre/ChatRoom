@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./App.css";
+import { Helmet } from 'react-helmet';
 import "./sass/App.sass";
 
 import firebase from "firebase/app";
@@ -29,6 +29,9 @@ function App() {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>ChatRoom</title>
+      </Helmet>
       <div className="container">
         <div className="hero is-white is-fullheight app-title">
           <div className="hero-header">
