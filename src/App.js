@@ -53,7 +53,18 @@ function SignIn() {
     auth.signInWithPopup(provider);
   };
 
-  return <button onClick={signInWithGoogle}>Sign In with Google</button>;
+  return (
+    <div className="container">
+      <div className="section is-large">
+        <button
+          className="button is-large is-primary"
+          onClick={signInWithGoogle}
+        >
+          Sign In with Google
+        </button>
+      </div>
+    </div>
+  );
 }
 
 function SignOut() {
@@ -73,49 +84,53 @@ function ChatRoom() {
     idField: "id",
   });
 
-  let lastSender = '';
+  let lastSender = "";
 
   const createMessage = (msg) => {
+    const { uid } = msg;
 
-    const {uid} = msg;
-
-    if(uid === lastSender) {
+    if (uid === lastSender) {
       msg.continuousSender = true;
     }
 
     lastSender = uid;
     return <ChatMessage key={msg.id} message={msg} />;
-  }
+  };
 
   return (
     <>
       <ul className="area">
-        {!messageIsLoading &&
-          message.map((msg) => createMessage(msg))}
+        {!messageIsLoading && message.map((msg) => createMessage(msg))}
       </ul>
     </>
   );
 }
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, displayName, createdAt, continuousSender } = props.message;
+  const {
+    text,
+    uid,
+    photoURL,
+    displayName,
+    createdAt,
+    continuousSender,
+  } = props.message;
   const messageClass = uid === auth.currentUser.uid ? "send" : "recieved";
-  const messageContinuous = continuousSender ? 'continuous' : '';
+  const messageContinuous = continuousSender ? "continuous" : "";
 
   const getHour = (date) => {
-    console.log(date);
     const hour = date.toDate().getHours();
     const min = date.toDate().getMinutes();
-    const pM = hour > 12 ? 'P.M.' : 'A.M.';
-    const newHour = hour > 12 ? hour - 12 : '0' + hour;
-    const newMins = min > 12 ?  min : '0' + min;
+    const pM = hour > 12 ? "P.M." : "A.M.";
+    const newHour = hour > 12 ? hour - 12 : "0" + hour;
+    const newMins = min > 12 ? min : "0" + min;
 
-    return newHour + ':' + newMins + ' ' + pM;
-  }
+    return newHour + ":" + newMins + " " + pM;
+  };
 
   return (
     <li className={`chat ${messageClass} ${messageContinuous}`}>
-      <img src={photoURL}  alt={`Profile pic of ${displayName}`}/>
+      <img src={photoURL} alt={`Profile pic of ${displayName}`} />
       <p className="text">
         <small className="sendFrom">{displayName}</small>
         {text}
