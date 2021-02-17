@@ -8,10 +8,10 @@ name: Deploy to Firebase Hosting on merge
       - master
 jobs:
   build_and_deploy:
+    environment: Production_ENV
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        environment: Production_ENV
       - run: yarn install --frozen-lockfile && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
